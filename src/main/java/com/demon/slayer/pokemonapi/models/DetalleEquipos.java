@@ -11,10 +11,13 @@ import lombok.Data;
 @Entity
 @Table(name ="detalleequipos")
 public class DetalleEquipos {
+
 	@Id
+	private long id;
+
 	@Column(name="idpokemon")
 	private long idpokemon;
-	@Id
+
 	@Column(name="idequipo")
 	private long idequipo;
 
