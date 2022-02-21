@@ -1,5 +1,9 @@
 package com.demon.slayer.pokemonapi.repositories;
 
-public interface EquipoRepository extends JpaRepository<Usuario, String> {
+import com.demon.slayer.pokemonapi.models.Equipo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EquipoRepository extends JpaRepository<Equipo, String> {
     
 }

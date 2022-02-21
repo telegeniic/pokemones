@@ -2,6 +2,7 @@ package com.demon.slayer.pokemonapi.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -9,10 +10,10 @@ import lombok.Data;
 @Entity
 @Table(name ="detalletipos")
 public class DetalleTipos {
-	
+	@Id
 	@Column(name="idpokemon")
 	private long idpokemon;
-	
+	@Id
 	@Column(name="idtipo")
 	private long id;
 	
