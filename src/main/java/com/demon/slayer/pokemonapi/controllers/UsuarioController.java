@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/pokemon")
 public class UsuarioController {
+    
     @Autowired
 	UsuarioService usuarioService;
      
