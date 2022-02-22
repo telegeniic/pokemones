@@ -2,6 +2,7 @@ package com.demon.slayer.pokemonapi.controllers;
 
 import javax.validation.Valid;
 
+import com.demon.slayer.pokemonapi.request.RequestUpdateUsuario;
 import com.demon.slayer.pokemonapi.request.RequestUsuario;
 import com.demon.slayer.pokemonapi.services.UsuarioService;
 
@@ -21,6 +22,12 @@ public class UsuarioController {
     @PostMapping("/createUsuario")
     public String createUsuario(@Valid @RequestBody RequestUsuario datos){
         return usuarioService.createUsuario(datos);
+    }
+        
+    @PostMapping("/update/{username}")
+    public String requestUpdateUsuario(@Valid @RequestBody RequestUpdateUsuario datos) {
+    	return usuarioService.requestUpdateUsuario(datos);
+    }
 
     }
-}
+

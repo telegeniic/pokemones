@@ -30,5 +30,7 @@ public class Usuario {
 		this.rol=datos.getRol();
 		this.password=datos.getPassword();
 	}
+	
+	
 
 }

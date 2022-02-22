@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.demon.slayer.pokemonapi.request.RequestEquipo;
+import com.demon.slayer.pokemonapi.request.RequestUpdateUsuario;
 
 import lombok.Data;
 
@@ -24,6 +26,13 @@ public class Equipo {
 	
 	@Column(name="nombreEquipo")
 	private String nombreequipo;
+	
+	public Equipo(RequestEquipo data) {
+		this.entrenador = data.getEntrenador();
+		this.nombreequipo = data.getNombreEquipo();
+		
+		
+	}
 	
 
 }
