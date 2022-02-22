@@ -8,13 +8,13 @@ import lombok.Setter;
 public class RequestUsuario {
     
     private String usuario;
-	private int rol;
+	private String rol;
     private String password;
 
     public String getUsuario(){
         return usuario;
     }
-    public int getRol(){
+    public String getRol(){
         return rol;
     }
     public String getPassword(){
