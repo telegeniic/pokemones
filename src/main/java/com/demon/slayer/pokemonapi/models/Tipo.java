@@ -8,14 +8,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name ="tipo")
+@Getter
+@Setter
 public class Tipo {
 	
 	@Id
@@ -25,8 +32,8 @@ public class Tipo {
 	@Column(name="nombretipo")
 	private String nombretipo;
 
-
-	@OneToMany(mappedBy="tipo")
-	private List<DetalleTipos> detalleTipos = new ArrayList<>();
+	@ManyToMany(mappedBy="tipos")
+	private List<Pokemon> pokemons =new ArrayList<>();
+	
 	
 }

@@ -9,11 +9,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioService {
-    @Autowired
-    UsuarioRepository usuarioRepository;
+	  @Autowired
+	    UsuarioRepository usuarioRepository;
 
-    public String createUsuario(RequestUsuario datos){
-            usuarioRepository.save(new Usuario(datos));
-            return "Todo salio bien";
-    }
+	    public String createUsuario(RequestUsuario datos){
+	    	if(this.findByUsuario(datos.getUsuario())==null) {
+	 
+	             usuarioRepository.save(new Usuario(datos));
+	             return "Bien";
+	    	}
+	    	else
+	    		return "Un error";
+	    		
+	         
+	    }
+	    public Usuario findByUsuario(String user) {
+	    	return usuarioRepository.findByUsuario(user);
+	    }
 }

@@ -10,17 +10,8 @@ public class RequestUsuario {
     private String usuario;
 	private String rol;
     private String password;
+   // private long id_equipo;
 
-    public String getUsuario(){
-        return usuario;
-    }
-    public String getRol(){
-        return rol;
-    }
-    public String getPassword(){
-        return password;
-    }
+  
+  
 }
-
-
-
