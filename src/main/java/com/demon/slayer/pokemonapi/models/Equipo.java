@@ -15,9 +15,11 @@ import javax.persistence.Table;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name ="equipos")
 public class Equipo {
 	
@@ -30,12 +32,16 @@ public class Equipo {
 	
 	@Column(name="nombreEquipo")
 	private String nombreequipo;
-
+	/*
 	@OneToOne(mappedBy = "equipo")
 	private Usuario usuario;
-
-	@OneToMany(mappedBy="Det_equipo")
-	private List<DetalleEquipos> detalleEquipo = new ArrayList<>();
+	*/
 	
+	/*
+	@ManyToMany(mappedBy="equipos")
+	private List<Pokemon> pokemons =new ArrayList<>();
+	*/
+	
+
 
 }
