@@ -23,7 +23,7 @@ public class RegistrationController {
 		return userObj;
 	}
 	
-	 @PostMapping("/login")
+	@PostMapping("/login")
 	public User loginUser(@RequestBody User user) throws Exception {
 		String tempUser = user.getUsername();
 		String tempPass = user.getPassword();
