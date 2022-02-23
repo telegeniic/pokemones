@@ -62,7 +62,7 @@ public class UsuarioService {
     public String requestUpdateUsuario(RequestUpdateUsuario datos, String username) {
     	 	Usuario usuario = usuarioRepository.findByUsuario(username).get();
 			List<Pokemon> pokemons = new ArrayList<>();
-			 usuario.setRol(datos.getUsuario().getRol());
+			usuario.setRol(datos.getUsuario().getRol());
 			usuario.getEquipo().setEntrenador(datos.getEquipo().getEntrenador());
 			usuario.getEquipo().setNombreEquipo(datos.getEquipo().getNombreEquipo());
     		datos.getPokemonList().forEach(p -> {
