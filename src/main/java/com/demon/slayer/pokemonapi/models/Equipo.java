@@ -59,5 +59,9 @@ public class Equipo {
 		return nombreequipo;
 	}
 
+    public List<Pokemon> getPokemons() {
+        return pokemons;
+    }
+
 
 }

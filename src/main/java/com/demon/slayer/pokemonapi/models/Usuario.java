@@ -7,6 +7,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.demon.slayer.pokemonapi.request.RequestRegister;
+
 import lombok.*;
 
 @Data
@@ -53,6 +55,11 @@ public void setEquipo(Equipo equipo) {
 	public void setPassword(String password) {
 		this.password=password;
 	}
+
+
+    public Equipo getEquipo() {
+        return equipo;
+    }
 
 	
 }

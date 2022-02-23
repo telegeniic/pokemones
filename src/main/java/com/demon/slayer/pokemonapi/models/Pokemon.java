@@ -67,7 +67,7 @@ public void setEquipos(List<Equipo>equipos) {
 public String getNombre() {
 	return nombre;
 }
-public Tipo[] getTipos() {
+public List<Tipo> getTipos() {
     return this.getTipos();
 }
 

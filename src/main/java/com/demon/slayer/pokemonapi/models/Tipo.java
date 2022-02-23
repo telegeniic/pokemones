@@ -34,6 +34,10 @@ public class Tipo {
 	public String getNombretipo() {
 		return nombretipo;
 	}
+
+    public void setNombretipo(String tipito) {
+		this.nombretipo=(tipito);
+    }
 	
 	
 }

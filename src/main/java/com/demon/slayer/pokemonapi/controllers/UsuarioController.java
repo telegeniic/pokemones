@@ -8,7 +8,9 @@ import com.demon.slayer.pokemonapi.request.RequestLoginUsuario;
 import com.demon.slayer.pokemonapi.request.RequestRegister;
 import com.demon.slayer.pokemonapi.request.RequestTipo;
 import com.demon.slayer.pokemonapi.response.JWTAuthResponse;
+import com.demon.slayer.pokemonapi.response.PokemonsResponse;
 import com.demon.slayer.pokemonapi.response.ResponsePokemon;
+import com.demon.slayer.pokemonapi.response.ResponseTipos;
 import com.demon.slayer.pokemonapi.security.JwtTokenProvider;
 import com.demon.slayer.pokemonapi.services.EquipoService;
 import com.demon.slayer.pokemonapi.services.PokemonService;
@@ -50,12 +52,7 @@ public class UsuarioController {
 
     Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
      
-    
-    @PostMapping("/register")
-    public String createUsuario(@Valid @RequestBody RequestRegister datos){
-        return usuarioService.createUsuario(datos);
 
-    }
 
     @PostMapping("/login")
     public JWTAuthResponse login(@RequestBody RequestLoginUsuario usuario){
@@ -73,25 +70,28 @@ public class UsuarioController {
 
     
     
-    @PostMapping("/equipo")
-    public String guardarEquipo(@Valid @RequestBody RequestEquipo equipo) {
-    	return equipoService.createEquipo(equipo);
-    	
+    @PostMapping("/register")
+    public String createUsuario(@Valid @RequestBody RequestRegister datos){
+        return usuarioService.createUsuario(datos);
+
     }
+
     
-    @GetMapping("/tipo")
-    public Tipo getTipo(@Valid @RequestBody RequestTipo tipo) {
-    	return tipoService.findTipoByNombre(tipo);
-    	
-    }
-    
-   
+	
 	 
-	@GetMapping("getByPokemon/{nombre}")
-	public ResponsePokemon getByName(@PathVariable String nombre){
-		return pokemonService.buscarPokemon(nombre);
+	@GetMapping("get_tipos")
+	public ResponseTipos getTipos(){
+		
+		return tipoService.getAllTipos();
 
 	}
+	
+	@GetMapping("get_pokemons/{username}")
+	public PokemonsResponse getByUsuario(@PathVariable String username){
+		
+		return usuarioService.pokemonesUsuario(username);
+	}
+
 	
 
     
