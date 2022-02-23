@@ -15,7 +15,7 @@ public class EquipoService {
 	
 	public String createEquipo (RequestEquipo req) {
 		 Equipo equipo =new Equipo();
-		 equipo.setNombreEquipo(req.getNombre_equipo());
+		 equipo.setNombreEquipo(req.getNombreEquipo());
 		 equipo.setEntrenador(req.getEntrenador());
 		equipoRepository.save(equipo);
 		 return "Equipo Agregado";

@@ -35,13 +35,13 @@ public class PokemonService {
 		 pokemon.setStatus(1);
 		 try {
 		 List<Tipo> tipos = new ArrayList<Tipo>();
-		 for (RequestTipo tipo:req.getTipos()) {
-			 Tipo type = tipoService.findTipoByNombre(tipo);
-			 tipos.add(type);
+		 for (String tipo:req.getTipos()) {
+			Tipo type = tipoService.findTipoByNombre(tipo);
+			tipos.add(type);
 		 }
 		 
 		equipoService.createEquipo(reqE);
-		Equipo eq= equipoService.obtenerEquipo(reqE.getNombre_equipo(),reqE.getEntrenador());
+		Equipo eq= equipoService.obtenerEquipo(reqE.getNombreEquipo(),reqE.getEntrenador());
 		List<Equipo> equipos = new ArrayList<Equipo>();
 		equipos.add(eq);
 		 pokemon.setTipos(tipos);

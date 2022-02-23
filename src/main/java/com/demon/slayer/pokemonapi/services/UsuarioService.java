@@ -70,7 +70,10 @@ public class UsuarioService {
 				p.getTipos().forEach((t) -> {
 					tipos.add(tipoService.findTipoByNombre(t));
 				});
-				Pok
+				Pokemon pokemon = new Pokemon();
+				pokemon.setTipos(tipos);
+				pokemon.setNombre(p.getName());
+				pokemons.add(pokemon);
 			});
     		return "Usuario actualizado exitosamente";
     }
