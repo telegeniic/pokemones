@@ -17,8 +17,6 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @Table(name ="tipo")
-@Getter
-@Setter
 public class Tipo {
 	
 	@Id

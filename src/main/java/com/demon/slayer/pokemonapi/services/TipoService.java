@@ -12,13 +12,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class TipoService {
 	
-	 @Autowired 
-	  TipoRepository tipoRepository;
-	 
-	 public Tipo findTipoByNombre(RequestTipo tipo) {
-	    	return tipoRepository.findByTipo(tipo.getNombreTipo());
+		@Autowired 
+		TipoRepository tipoRepository;
+		
+		public Tipo findTipoByNombre(RequestTipo tipo) {
+			return tipoRepository.findByTipo(tipo.getNombreTipo());
+		}
 
-
-	    }
+		public Tipo findTipoByNombre(String tipo){
+			return tipoRepository.findByTipo(tipo);
+		}
 
 }

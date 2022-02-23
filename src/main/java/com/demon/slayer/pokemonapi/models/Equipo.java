@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.demon.slayer.pokemonapi.request.RequestEquipo;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -59,5 +61,12 @@ public class Equipo {
 		return nombreequipo;
 	}
 
+	public Equipo(RequestEquipo data) {
+		this.entrenador = data.getEntrenador();
+		this.nombreequipo = data.getNombreEquipo();
+		
+		
+	}
+	
 
 }

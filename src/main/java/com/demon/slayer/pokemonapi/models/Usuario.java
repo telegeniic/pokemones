@@ -7,6 +7,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.demon.slayer.pokemonapi.request.RequestUsuario;
+
 import lombok.*;
 
 @Data
@@ -14,8 +16,6 @@ import lombok.*;
 @Table(name="Usuarios")
 
 public class Usuario {
-	
-	
 	
 	@Id
 	@Column(name="usuario",unique=true)
@@ -27,20 +27,13 @@ public class Usuario {
 	@Column(name="pass")
 	private String password;
 
-	
 	@OneToOne
 	@JoinColumn(name = "team_id")
 	private Equipo equipo;
-	
-	
 
-
-	
-
-public void setEquipo(Equipo equipo) {
-	this.equipo=equipo;
-}
-
+	public void setEquipo(Equipo equipo) {
+		this.equipo=equipo;
+	}
 
 	public void setUsuario(String usuario2) {
 		this.usuario=usuario2;
@@ -53,6 +46,8 @@ public void setEquipo(Equipo equipo) {
 	public void setPassword(String password) {
 		this.password=password;
 	}
+	
+	
 
 	
 }

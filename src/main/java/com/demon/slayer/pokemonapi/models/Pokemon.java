@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.demon.slayer.pokemonapi.request.RequestPokemon;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -42,6 +44,9 @@ public class Pokemon {
 	)
 	private List<Tipo> tipos =new ArrayList<>();
 	
+	public Pokemon(RequestPokemon p) {
+		this.nombre = p.getName();
+	}
 
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinTable(
@@ -61,15 +66,15 @@ public class Pokemon {
 		this.tipos=tipos;
 	}
 
-public void setEquipos(List<Equipo>equipos) {
-	this.equipos=equipos;
-}
-public String getNombre() {
-	return nombre;
-}
-public Tipo[] getTipos() {
-    return this.getTipos();
-}
+	public void setEquipos(List<Equipo>equipos) {
+		this.equipos=equipos;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public Tipo[] getTipos() {
+		return this.getTipos();
+	}
 
 	
 }

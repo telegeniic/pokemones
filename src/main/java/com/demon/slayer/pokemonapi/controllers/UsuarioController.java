@@ -13,6 +13,8 @@ import com.demon.slayer.pokemonapi.security.JwtTokenProvider;
 import com.demon.slayer.pokemonapi.services.EquipoService;
 import com.demon.slayer.pokemonapi.services.PokemonService;
 import com.demon.slayer.pokemonapi.services.TipoService;
+import com.demon.slayer.pokemonapi.request.RequestUpdateUsuario;
+import com.demon.slayer.pokemonapi.request.RequestUsuario;
 import com.demon.slayer.pokemonapi.services.UsuarioService;
 
 import org.slf4j.Logger;
@@ -54,7 +56,11 @@ public class UsuarioController {
     @PostMapping("/register")
     public String createUsuario(@Valid @RequestBody RequestRegister datos){
         return usuarioService.createUsuario(datos);
-
+    }
+        
+    @PostMapping("/update/{username}")
+    public String requestUpdateUsuario(@Valid @RequestBody RequestUpdateUsuario datos) {
+    	return usuarioService.requestUpdateUsuario(datos);
     }
 
     @PostMapping("/login")
