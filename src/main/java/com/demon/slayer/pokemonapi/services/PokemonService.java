@@ -35,7 +35,7 @@ public class PokemonService {
 		 pokemon.setStatus(1);
 		 try {
 		 List<Tipo> tipos = new ArrayList<Tipo>();
-		 for (RequestTipo tipo:req.getTipos()) {
+		 for (String tipo:req.getTipos()) {
 			 Tipo type = tipoService.findTipoByNombre(tipo);
 			 tipos.add(type);
 		 }

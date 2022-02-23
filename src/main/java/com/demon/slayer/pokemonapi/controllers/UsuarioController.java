@@ -81,7 +81,7 @@ public class UsuarioController {
     
     @GetMapping("/tipo")
     public Tipo getTipo(@Valid @RequestBody RequestTipo tipo) {
-    	return tipoService.findTipoByNombre(tipo);
+    	return tipoService.findTipoByNombre(tipo.getNombreTipo());
     	
     }
     

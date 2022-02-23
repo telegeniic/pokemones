@@ -9,18 +9,12 @@ import lombok.Setter;
 @Setter
 public class RequestPokemon {
 	private String name;
-	private List<RequestTipo> tipos;
+	private List<String> tipos;
 	
 	
 	
 	public String getName() {
 		return name;
-	}
-	
-	
-
-	public List<RequestTipo> getTipos() {
-		return tipos;
 	}
 
 }
