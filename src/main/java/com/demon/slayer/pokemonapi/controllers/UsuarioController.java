@@ -2,6 +2,7 @@ package com.demon.slayer.pokemonapi.controllers;
 
 import javax.validation.Valid;
 
+import com.demon.slayer.pokemonapi.models.Testing;
 import com.demon.slayer.pokemonapi.models.Tipo;
 import com.demon.slayer.pokemonapi.request.RequestEquipo;
 import com.demon.slayer.pokemonapi.request.RequestLoginUsuario;
@@ -94,6 +95,11 @@ public class UsuarioController {
 		return pokemonService.buscarPokemon(nombre);
 
 	}
+
+    @PostMapping("testing")
+    public String testing(@RequestBody Testing testing){
+        return "funciono";
+    }
 	
 
     
