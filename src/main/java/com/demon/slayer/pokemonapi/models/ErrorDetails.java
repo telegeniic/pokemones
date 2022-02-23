@@ -1,5 +1,4 @@
 package com.demon.slayer.pokemonapi.models;
-
 import java.util.Date;
 
 import lombok.AllArgsConstructor;

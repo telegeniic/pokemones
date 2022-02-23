@@ -15,6 +15,8 @@ import com.demon.slayer.pokemonapi.services.PokemonService;
 import com.demon.slayer.pokemonapi.services.TipoService;
 import com.demon.slayer.pokemonapi.services.UsuarioService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,6 +47,8 @@ public class UsuarioController {
 
    @Autowired
     private JwtTokenProvider tokenProvider;
+
+    Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
      
     
     @PostMapping("/register")
@@ -55,9 +59,12 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public JWTAuthResponse login(@RequestBody RequestLoginUsuario usuario){
+        logger.warn("Se hizo la llamada");
+        logger.warn("username: "+usuario.getUsuario());
+        logger.warn("password: "+usuario.getPassword());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-            usuario.getUsername(), usuario.getPassword()));
-
+            usuario.getUsuario(), usuario.getPassword()));
+        
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = tokenProvider.generateToken(authentication);
