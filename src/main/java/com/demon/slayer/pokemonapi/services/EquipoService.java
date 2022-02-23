@@ -11,20 +11,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class EquipoService {
 	@Autowired
-	 EquipoRepository equipoRepository;
+	EquipoRepository equipoRepository;
 	
 	public String createEquipo (RequestEquipo req) {
-		 Equipo equipo =new Equipo();
-		 equipo.setNombreEquipo(req.getNombreEquipo());
-		 equipo.setEntrenador(req.getEntrenador());
+		Equipo equipo =new Equipo();
+		equipo.setNombreEquipo(req.getNombreEquipo());
+		equipo.setEntrenador(req.getEntrenador());
 		equipoRepository.save(equipo);
-		 return "Equipo Agregado";
-		 
+		return "Equipo Agregado";
+		
 	}
 	
- public Equipo obtenerEquipo(String nombre,String entrenador) {
-		 
-		 return equipoRepository.findByNombre(nombre, entrenador);
-		 
-	 }
+	public Equipo obtenerEquipo(String nombre,String entrenador) { 
+		return equipoRepository.findByNombre(nombre, entrenador).get();
+	}
 }

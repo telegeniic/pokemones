@@ -1,5 +1,7 @@
 package com.demon.slayer.pokemonapi.repositories;
 
+import java.util.Optional;
+
 import com.demon.slayer.pokemonapi.models.Tipo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +14,7 @@ public interface TipoRepository extends JpaRepository<Tipo, Long>{
 	
 
 		
-		@Query("From Tipo where nombretipo=:nombretipo ")
-		Tipo findByTipo(@Param("nombretipo") String nombretipo);
+	@Query("From Tipo where nombretipo=:nombretipo ")
+	Optional<Tipo> findByTipo(@Param("nombretipo") String nombretipo);
 
 }

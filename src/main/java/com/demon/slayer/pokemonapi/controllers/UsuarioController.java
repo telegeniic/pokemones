@@ -65,9 +65,6 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public JWTAuthResponse login(@RequestBody RequestLoginUsuario usuario){
-        logger.warn("Se hizo la llamada");
-        logger.warn("username: "+usuario.getUsuario());
-        logger.warn("password: "+usuario.getPassword());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
             usuario.getUsuario(), usuario.getPassword()));
         
