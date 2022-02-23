@@ -1,8 +1,6 @@
 package com.demon.slayer.pokemonapi.models;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +30,10 @@ public class Tipo {
 
 	@ManyToMany(mappedBy="tipos")
 	private List<Pokemon> pokemons =new ArrayList<>();
+
+	public String getNombretipo() {
+		return nombretipo;
+	}
 	
 	
 }
