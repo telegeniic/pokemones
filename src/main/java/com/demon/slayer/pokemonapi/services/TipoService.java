@@ -30,14 +30,12 @@ public class TipoService {
 	   List<Tipo> tipo = new ArrayList<Tipo>();
 	   
 	   for(String tipito:tiposDefinidos) {
-		   Tipo type =new Tipo();
-		   type.setNombretipo(tipito);
-		   tipo.add(type);
-	   }
-	   for (Tipo mostrar:tipo) {
-		   System.out.println(mostrar.getNombretipo());
-	   }
-	   tipoRepository.saveAll(tipo);
+		Tipo type =new Tipo();
+		type.setNombretipo(tipito);
+		tipo.add(type);
+		tipoRepository.save(type);
+	}
+	
 	   
    }
    public ResponseTipos getAllTipos() {

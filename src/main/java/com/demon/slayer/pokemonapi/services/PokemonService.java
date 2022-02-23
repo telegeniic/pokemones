@@ -11,8 +11,6 @@ import com.demon.slayer.pokemonapi.request.RequestEquipo;
 import com.demon.slayer.pokemonapi.request.RequestPokemon;
 import com.demon.slayer.pokemonapi.request.RequestTipo;
 import com.demon.slayer.pokemonapi.response.ResponsePokemon;
-import com.demon.slayer.pokemonapi.response.ResponseTipo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -56,13 +56,13 @@ public class UsuarioService {
 	    		
 	         
 	    }
-	    public Optional<Usuario> findByUsuario(String user) {
+	    public Usuario findByUsuario(String user) {
 	    	return usuarioRepository.findByUsuario(user);
 	    }
 	    
 	    
 	    public PokemonsResponse pokemonesUsuario(String name) {
-	    	Usuario user =(usuarioRepository.findByUsuario(name)).get();
+	    	Usuario user =(usuarioRepository.findByUsuario(name));
 	    	PokemonsResponse regresar=new PokemonsResponse();
 	    	List<ResponsePokemon> pokemones =new ArrayList();
 	    	for(Pokemon pokemon:user.getEquipo().getPokemons()) {
