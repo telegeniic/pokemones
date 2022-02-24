@@ -13,5 +13,12 @@ public class RequestPokemon {
 	@JsonProperty("nombre")
 	private String name;
 	private List<String> tipos;
+	
+	
+	
+	public String getName() {
+		return name;
+	}
+
 }
 
