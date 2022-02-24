@@ -67,3 +67,41 @@
 2022-02-24 11:19:29.451  INFO 9020 --- [http-nio-8081-exec-5] c.d.s.p.services.UsuarioService          : Username: user
 2022-02-24 11:19:29.654  INFO 9020 --- [http-nio-8081-exec-5] c.d.s.p.services.UsuarioService          : usuario: com.demon.slayer.pokemonapi.models.Usuario@42350562
 2022-02-24 11:19:29.655  INFO 9020 --- [http-nio-8081-exec-5] c.d.s.p.services.UsuarioService          : buscando tipo: Electric
+2022-02-24 12:38:17.707  INFO 24144 --- [main] c.d.s.pokemonapi.PokemonApiApplication   : Starting PokemonApiApplication using Java 1.8.0_202 on E-JMGUAJARDO with PID 24144 (C:\Users\e-jmguajardo\Documents\repos\Java\pokemon-api\bin\main started by e-jmguajardo in C:\Users\e-jmguajardo\Documents\repos\Java\pokemon-api)
+2022-02-24 12:38:17.710  INFO 24144 --- [main] c.d.s.pokemonapi.PokemonApiApplication   : No active profile set, falling back to default profiles: default
+2022-02-24 12:38:18.498  INFO 24144 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-02-24 12:38:18.607  INFO 24144 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 88 ms. Found 4 JPA repository interfaces.
+2022-02-24 12:38:19.744  INFO 24144 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2022-02-24 12:38:19.764  INFO 24144 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-02-24 12:38:19.765  INFO 24144 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-02-24 12:38:19.916  INFO 24144 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-02-24 12:38:19.917  INFO 24144 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2163 ms
+2022-02-24 12:38:20.065  WARN 24144 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-02-24 12:38:20.322  INFO 24144 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-02-24 12:38:20.383  INFO 24144 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.4.Final
+2022-02-24 12:38:20.577  INFO 24144 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-02-24 12:38:20.698  INFO 24144 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-02-24 12:38:21.862  INFO 24144 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-02-24 12:38:21.881  INFO 24144 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL81Dialect
+2022-02-24 12:38:24.249  INFO 24144 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-02-24 12:38:24.259  INFO 24144 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-02-24 12:38:25.482  INFO 24144 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@429e7914, org.springframework.security.web.context.SecurityContextPersistenceFilter@68f776ee, org.springframework.security.web.header.HeaderWriterFilter@52433946, org.springframework.security.web.authentication.logout.LogoutFilter@405d8a80, com.demon.slayer.pokemonapi.security.JwtAuthenticationFilter@f849027, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@8af1c49, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5611bba, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@298263fa, org.springframework.security.web.session.SessionManagementFilter@3e2d8623, org.springframework.security.web.access.ExceptionTranslationFilter@4c030fe1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@59a94d0f]
+2022-02-24 12:38:26.445  INFO 24144 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2022-02-24 12:38:26.467  INFO 24144 --- [main] c.d.s.pokemonapi.PokemonApiApplication   : Started PokemonApiApplication in 9.216 seconds (JVM running for 9.647)
+2022-02-24 12:38:36.443  INFO 24144 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-02-24 12:38:36.443  INFO 24144 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-02-24 12:38:36.446  INFO 24144 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2022-02-24 12:38:52.461  WARN 24144 --- [http-nio-8081-exec-4] c.d.s.p.security.JwtTokenProvider        : datos: RequestUpdateUsuario(user=RequestUsuario(usuario=user, rol=admin, password=123456), equipo=RequestEquipo(entrenador=dsdsdds, nombreEquipo=null), pokemonList=[RequestPokemon(name=null, tipos=[Electric])])
+2022-02-24 12:38:52.462  WARN 24144 --- [http-nio-8081-exec-4] c.d.s.p.security.JwtTokenProvider        : username: user
+2022-02-24 12:38:52.462  INFO 24144 --- [http-nio-8081-exec-4] c.d.s.p.services.UsuarioService          : Se llamo la funcion Request update
+2022-02-24 12:38:52.462  INFO 24144 --- [http-nio-8081-exec-4] c.d.s.p.services.UsuarioService          : Datos: RequestUpdateUsuario(user=RequestUsuario(usuario=user, rol=admin, password=123456), equipo=RequestEquipo(entrenador=dsdsdds, nombreEquipo=null), pokemonList=[RequestPokemon(name=null, tipos=[Electric])])
+2022-02-24 12:38:52.462  INFO 24144 --- [http-nio-8081-exec-4] c.d.s.p.services.UsuarioService          : Username: user
+2022-02-24 12:38:52.666  INFO 24144 --- [http-nio-8081-exec-4] c.d.s.p.services.UsuarioService          : usuario: com.demon.slayer.pokemonapi.models.Usuario@4ad58e4
+2022-02-24 12:38:52.667  INFO 24144 --- [http-nio-8081-exec-4] c.d.s.p.services.UsuarioService          : buscando tipo: Electric
+2022-02-24 12:39:25.444  WARN 24144 --- [http-nio-8081-exec-7] c.d.s.p.security.JwtTokenProvider        : datos: RequestUpdateUsuario(user=RequestUsuario(usuario=user, rol=admin, password=123456), equipo=RequestEquipo(entrenador=cxcxcx, nombreEquipo=null), pokemonList=[RequestPokemon(name=null, tipos=[Electric])])
+2022-02-24 12:39:25.444  WARN 24144 --- [http-nio-8081-exec-7] c.d.s.p.security.JwtTokenProvider        : username: user
+2022-02-24 12:39:25.444  INFO 24144 --- [http-nio-8081-exec-7] c.d.s.p.services.UsuarioService          : Se llamo la funcion Request update
+2022-02-24 12:39:25.444  INFO 24144 --- [http-nio-8081-exec-7] c.d.s.p.services.UsuarioService          : Datos: RequestUpdateUsuario(user=RequestUsuario(usuario=user, rol=admin, password=123456), equipo=RequestEquipo(entrenador=cxcxcx, nombreEquipo=null), pokemonList=[RequestPokemon(name=null, tipos=[Electric])])
+2022-02-24 12:39:25.444  INFO 24144 --- [http-nio-8081-exec-7] c.d.s.p.services.UsuarioService          : Username: user
+2022-02-24 12:39:25.648  INFO 24144 --- [http-nio-8081-exec-7] c.d.s.p.services.UsuarioService          : usuario: com.demon.slayer.pokemonapi.models.Usuario@7113da63
+2022-02-24 12:39:25.648  INFO 24144 --- [http-nio-8081-exec-7] c.d.s.p.services.UsuarioService          : buscando tipo: Electric

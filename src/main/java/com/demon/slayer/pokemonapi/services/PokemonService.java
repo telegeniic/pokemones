@@ -34,30 +34,7 @@ public class PokemonService {
    @Autowired
    EquipoService equipoService;
    
-<<<<<<< HEAD
    public Pokemon createPokemon(RequestPokemon req,RequestEquipo reqE) {
-		Pokemon pokemon = new Pokemon();
-		pokemon.setNombre(req.getName());
-		pokemon.setStatus(1);
-		try {
-		List<Tipo> tipos = new ArrayList();
-		for (String tipo:req.getTipos()) {
-			Tipo type = tipoService.findTipoByNombre(tipo);
-			tipos.add(type);
-		}
-		
-		Equipo eq= equipoService.obtenerEquipo(reqE);
-		List<Equipo> equipos = new ArrayList();
-		equipos.add(eq);
-		pokemon.setTipos(tipos);
-		pokemon.setEquipos(equipos);
-		return pokemonRepository.save(pokemon);
-		}catch(Exception e) {
-			
-			return null;
-		}
-=======
-   public String createPokemon(RequestPokemon req,RequestEquipo reqE) {
 	   Pokemon pokemon = new Pokemon();
 	   if(this.pokemonIgual(req)!=0) {
 		   pokemon=this.pokemonId(this.pokemonIgual(req));
@@ -67,7 +44,7 @@ public class PokemonService {
 		  equipos=pokemon.getEquipos();
 		  equipos.add(eq);
 		  pokemon.setEquipos(equipos);
-		   return "Pokemon Actualizado";
+		   return pokemon;
 		   
 	   }else {
 			   pokemon.setNombre(req.getName());
@@ -86,14 +63,13 @@ public class PokemonService {
 			   pokemon.setTipos(tipos);
 			   pokemon.setEquipos(equipos);
 			  
-			   pokemonRepository.save(pokemon);
-			   return "Pokemon Guardado";
+			   
+			   return pokemonRepository.save(pokemon);
 			   }catch(Exception e) {
 				   
-				   return "Algo salió mal"+e.getMessage();
+				   return null;
 			   }
 	   }
->>>>>>> development
 		   
    }
    
