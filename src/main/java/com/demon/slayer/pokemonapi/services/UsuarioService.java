@@ -82,7 +82,7 @@ public class UsuarioService {
 			
 	}
 	public Usuario findByUsuario(String user) {
-		return usuarioRepository.findByUsuario(user).orElseThrow(() -> new UserNotFoundException());
+		return usuarioRepository.findByUsuario(user).orElse(null);
 	}
 
 	public String requestUpdateUsuario(RequestUpdateUsuario datos, String username) {
@@ -93,15 +93,15 @@ public class UsuarioService {
 		logger.info("usuario: "+usuario);
 		List<Pokemon> pokemons = new ArrayList<>();
 		usuario.setRol(datos.getUser().getRol());
-		usuario.getEquipo().setEntrenador(datos.getEquipo().getEntrenador());
-		usuario.getEquipo().setNombreEquipo(datos.getEquipo().getNombre_equipo());
+		usuario.setEquipo(equipoService.updateEquipo(usuario.getEquipo(), datos.getEquipo()));
 		datos.getPokemonList().forEach(p -> {
 			List<Tipo> tipos = new ArrayList<>();
+			logger.info("nombre pokemon: "+p.getName());
 			p.getTipos().forEach((t) -> {
 				logger.info("buscando tipo: "+t);
 				tipos.add(tipoService.findTipoByNombre(t));
 			});
-			Pokemon pokemon = new Pokemon();
+			Pokemon pokemon = pokemonService.createPokemon(p, datos.getEquipo());
 			pokemon.setTipos(tipos);
 			pokemon.setNombre(p.getName());
 			pokemons.add(pokemon);

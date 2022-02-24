@@ -2,6 +2,8 @@ package com.demon.slayer.pokemonapi.services;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.demon.slayer.pokemonapi.exceptions.ResponseException;
 import com.demon.slayer.pokemonapi.models.Equipo;
 import com.demon.slayer.pokemonapi.models.Pokemon;
 import com.demon.slayer.pokemonapi.models.Tipo;
@@ -14,6 +16,7 @@ import com.demon.slayer.pokemonapi.response.ResponsePokemon;
 import com.demon.slayer.pokemonapi.response.ResponseTipos;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 
@@ -34,7 +37,7 @@ public class PokemonService {
    @Autowired
    EquipoService equipoService;
    
-   public String createPokemon(RequestPokemon req,RequestEquipo reqE) {
+   public Pokemon createPokemon(RequestPokemon req,RequestEquipo reqE) {
 	   Pokemon pokemon = new Pokemon();
 	   if(this.pokemonIgual(req)!=0) {
 		   pokemon=this.pokemonId(this.pokemonIgual(req));
@@ -44,30 +47,28 @@ public class PokemonService {
 		  equipos=pokemon.getEquipos();
 		  equipos.add(eq);
 		  pokemon.setEquipos(equipos);
-		   return "Pokemon Actualizado";
+		   return pokemon;
 		   
 	   }else {
 			   pokemon.setNombre(req.getName());
 			   pokemon.setStatus(1);
 			   try {
-			   List<Tipo> tipos = new ArrayList<Tipo>();
-			   for (String tipo:req.getTipos()) {
-				   Tipo type = tipoService.findTipoByNombre(tipo);
-				   tipos.add(type);
-			   }
-			   
-			  equipoService.createEquipo(reqE);
-			  Equipo eq= equipoService.obtenerEquipo(reqE.getNombre_equipo(),reqE.getEntrenador());
-			  List<Equipo> equipos = new ArrayList<Equipo>();
-			  equipos.add(eq);
-			   pokemon.setTipos(tipos);
-			   pokemon.setEquipos(equipos);
-			  
-			   pokemonRepository.save(pokemon);
-			   return "Pokemon Guardado";
+				List<Tipo> tipos = new ArrayList<Tipo>();
+				for (String tipo:req.getTipos()) {
+					Tipo type = tipoService.findTipoByNombre(tipo);
+					tipos.add(type);
+				}
+				
+				equipoService.createEquipo(reqE);
+				Equipo eq= equipoService.obtenerEquipo(reqE.getNombre_equipo(),reqE.getEntrenador());
+				List<Equipo> equipos = new ArrayList<Equipo>();
+				equipos.add(eq);
+				pokemon.setTipos(tipos);
+				pokemon.setEquipos(equipos);
+				return pokemonRepository.save(pokemon);
 			   }catch(Exception e) {
 				   
-				   return "Algo salió mal"+e.getMessage();
+				   throw new ResponseException("Error con pokemons", e.getStackTrace().toString(), "Error con pokemon", HttpStatus.INTERNAL_SERVER_ERROR);
 			   }
 	   }
 		   
@@ -150,7 +151,6 @@ public class PokemonService {
 		  respuesta.setTipos(nombreTipos);
 		  return respuesta;
 	  }
-
 
 }
 
