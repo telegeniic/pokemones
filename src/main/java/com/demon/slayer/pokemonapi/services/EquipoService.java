@@ -23,6 +23,6 @@ public class EquipoService {
 	}
 	
 	public Equipo obtenerEquipo(String nombre,String entrenador) { 
-		return equipoRepository.findByNombre(nombre, entrenador).get();
+		return equipoRepository.findByNombre(nombre, entrenador).orElse(null);
 	}
 }

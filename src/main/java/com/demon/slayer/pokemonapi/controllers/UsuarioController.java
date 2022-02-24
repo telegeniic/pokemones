@@ -62,6 +62,7 @@ public class UsuarioController {
         
     @PostMapping("/update/{username}")
     public String requestUpdateUsuario(@Valid @RequestBody RequestUpdateUsuario datos, @PathVariable String username) {
+        logger.warn("datos");
     	return usuarioService.requestUpdateUsuario(datos, username);
     }
 
