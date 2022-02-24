@@ -13,18 +13,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
 import com.demon.slayer.pokemonapi.request.RequestPokemon;
-import com.demon.slayer.pokemonapi.response.ResponseTipos;
-import com.demon.slayer.pokemonapi.services.PokemonService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Data
 @Getter
 @Setter
 @Entity
@@ -56,7 +53,7 @@ public class Pokemon {
 		this.nombre = p.getName();
 	}
 
-	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinTable(
 		name="pokemon_equipo",
 				joinColumns=@JoinColumn(name="idpokemon"),
@@ -86,4 +83,7 @@ public class Pokemon {
 	public List<Equipo> getEquipos() {
 		return equipos;
 	}
+    public Long getIdpokemon() {
+        return idpokemon;
+    }
 }
