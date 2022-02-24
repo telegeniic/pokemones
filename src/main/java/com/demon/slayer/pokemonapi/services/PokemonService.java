@@ -32,30 +32,27 @@ public class PokemonService {
    @Autowired
    EquipoService equipoService;
    
-   public String createPokemon(RequestPokemon req,RequestEquipo reqE) {
-	   Pokemon pokemon = new Pokemon();
-	   pokemon.setNombre(req.getName());
-	   pokemon.setStatus(1);
-	   try {
-	   List<Tipo> tipos = new ArrayList();
-	   for (String tipo:req.getTipos()) {
-		   Tipo type = tipoService.findTipoByNombre(tipo);
-		   tipos.add(type);
-	   }
-	   
-	  equipoService.createEquipo(reqE);
-	  Equipo eq= equipoService.obtenerEquipo(reqE.getNombreEquipo(),reqE.getEntrenador());
-	  List<Equipo> equipos = new ArrayList();
-	  equipos.add(eq);
-	   pokemon.setTipos(tipos);
-	   pokemon.setEquipos(equipos);
-	  
-	   pokemonRepository.save(pokemon);
-	   return "Pokemon Guardado";
-	   }catch(Exception e) {
-		   
-		   return "Algo salió mal"+e.getMessage();
-	   }
+   public Pokemon createPokemon(RequestPokemon req,RequestEquipo reqE) {
+		Pokemon pokemon = new Pokemon();
+		pokemon.setNombre(req.getName());
+		pokemon.setStatus(1);
+		try {
+		List<Tipo> tipos = new ArrayList();
+		for (String tipo:req.getTipos()) {
+			Tipo type = tipoService.findTipoByNombre(tipo);
+			tipos.add(type);
+		}
+		
+		Equipo eq= equipoService.obtenerEquipo(reqE);
+		List<Equipo> equipos = new ArrayList();
+		equipos.add(eq);
+		pokemon.setTipos(tipos);
+		pokemon.setEquipos(equipos);
+		return pokemonRepository.save(pokemon);
+		}catch(Exception e) {
+			
+			return null;
+		}
 		   
    }
    public ResponsePokemon buscarPokemon(String name) {

@@ -96,11 +96,11 @@ public class UsuarioService {
 				logger.info("buscando tipo: "+t);
 				tipos.add(tipoService.findTipoByNombre(t));
 			});
-			Pokemon pokemon = new Pokemon();
-			pokemon.setTipos(tipos);
-			pokemon.setNombre(p.getName());
+			Pokemon pokemon = pokemonService.createPokemon(p, datos.getEquipo());
 			pokemons.add(pokemon);
 		});
+		usuario.getEquipo().setPokemons(pokemons);
+		usuarioRepository.save(usuario);
 		return "Usuario actualizado exitosamente";
     }
 	    
