@@ -53,9 +53,6 @@ public class Pokemon {
 		this.nombre = p.getName();
 	}
 
-	public Pokemon() {
-    }
-
     @ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinTable(
 		name="pokemon_equipo",

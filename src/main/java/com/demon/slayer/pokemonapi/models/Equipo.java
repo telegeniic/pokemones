@@ -61,9 +61,6 @@ public class Equipo {
 	public String getNombreequipo() {
 		return nombreequipo;
 	}
-	public Equipo(){
-		
-	}
 
 	public Equipo(RequestEquipo data) {
 		this.entrenador = data.getEntrenador();
