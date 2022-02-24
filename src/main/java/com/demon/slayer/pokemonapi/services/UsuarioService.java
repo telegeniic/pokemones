@@ -61,18 +61,15 @@ public class UsuarioService {
 	    }
 	    
 	    
-	    public PokemonsResponse pokemonesUsuario(String name) {
-	    	Usuario user =(usuarioRepository.findByUsuario(name));
+		public PokemonsResponse pokemonesUsuario(String name) {
+	    	Usuario user =usuarioRepository.findByUsuario(name);
 	    	PokemonsResponse regresar=new PokemonsResponse();
 	    	List<ResponsePokemon> pokemones =new ArrayList();
-	    	for(Pokemon pokemon:user.getEquipo().getPokemons()) {
+	    	for(Pokemon pokemon:pokemonService.pokemonEquipo(user.getEquipo())) {
 	    		ResponsePokemon respuesta =new ResponsePokemon();
 	    		respuesta.setNombre(pokemon.getNombre());
-	    		List<String> types=new ArrayList();
-	    		for(Tipo type:pokemon.getTipos()) {
-	    			types.add(type.getNombretipo());
-	    		}
-	    		respuesta.setTipos(types);
+
+	    		respuesta.setTipos(pokemonService.tipos(pokemon).getTipos());
 	    		pokemones.add(respuesta);
 	    	}
 	    	regresar.setListaPokemons(pokemones);

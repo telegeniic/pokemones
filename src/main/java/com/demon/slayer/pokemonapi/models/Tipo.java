@@ -38,6 +38,10 @@ public class Tipo {
     public void setNombretipo(String tipito) {
 		this.nombretipo=(tipito);
     }
+
+	public List<Pokemon> getPokemons() {
+		return pokemons;
+	}
 	
 	
 }

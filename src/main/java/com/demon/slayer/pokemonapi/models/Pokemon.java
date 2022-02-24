@@ -13,6 +13,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.demon.slayer.pokemonapi.response.ResponseTipos;
+import com.demon.slayer.pokemonapi.services.PokemonService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +28,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name ="pokemon")
 public class Pokemon {
+
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -70,6 +76,11 @@ public String getNombre() {
 public List<Tipo> getTipos() {
     return this.getTipos();
 }
+public List<Equipo> getEquipos() {
+    return equipos;
+}
+
+
 
 	
 }
