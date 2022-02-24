@@ -78,10 +78,8 @@ public class UsuarioService {
 	public Usuario findByUsuario(String user) {
 		return usuarioRepository.findByUsuario(user).orElse(null);
 	}
-	    
-	    
-    //se deben guardar los cambios al usuario
-    public String requestUpdateUsuario(RequestUpdateUsuario datos, String username) {
+
+	public String requestUpdateUsuario(RequestUpdateUsuario datos, String username) {
 		logger.info("Se llamo la funcion Request update");
 		logger.info("Datos: "+datos);
 		logger.info("Username: "+username);
@@ -104,25 +102,21 @@ public class UsuarioService {
 		});
 		return "Usuario actualizado exitosamente";
     }
-
+	    
+	    
 	public PokemonsResponse pokemonesUsuario(String name) {
-		Usuario user =(usuarioRepository.findByUsuario(name).orElse(null));
-		logger.info("user: "+user);
-		logger.info("team: "+user.getEquipo());
-		logger.info("pokemons: "+user.getEquipo().getPokemons());
+		Usuario user =usuarioRepository.findByUsuario(name).orElse(null);
 		PokemonsResponse regresar=new PokemonsResponse();
 		List<ResponsePokemon> pokemones =new ArrayList<>();
-		for(Pokemon pokemon:user.getEquipo().getPokemons()) {
+		for(Pokemon pokemon:pokemonService.pokemonEquipo(user.getEquipo())) {
 			ResponsePokemon respuesta =new ResponsePokemon();
 			respuesta.setNombre(pokemon.getNombre());
-			List<String> types=new ArrayList<>();
-			for(Tipo type:pokemon.getTipos()) {
-				types.add(type.getNombretipo());
-			}
-			respuesta.setTipos(types);
+
+			respuesta.setTipos(pokemonService.tipos(pokemon).getTipos());
 			pokemones.add(respuesta);
 		}
 		regresar.setListaPokemons(pokemones);
 		return regresar;
 	}
+	    
 }

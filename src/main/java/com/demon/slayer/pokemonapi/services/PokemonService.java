@@ -7,10 +7,12 @@ import com.demon.slayer.pokemonapi.models.Equipo;
 import com.demon.slayer.pokemonapi.models.Pokemon;
 import com.demon.slayer.pokemonapi.models.Tipo;
 import com.demon.slayer.pokemonapi.repositories.PokemonRepository;
+import com.demon.slayer.pokemonapi.repositories.TipoRepository;
 import com.demon.slayer.pokemonapi.request.RequestEquipo;
 import com.demon.slayer.pokemonapi.request.RequestPokemon;
 import com.demon.slayer.pokemonapi.response.ResponsePokemon;
 import com.demon.slayer.pokemonapi.response.ResponseTipo;
+import com.demon.slayer.pokemonapi.response.ResponseTipos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,58 +24,95 @@ public class PokemonService {
 	
 	@Autowired 
 	PokemonRepository pokemonRepository;
-	@Autowired
-	TipoService tipoService;
+	@Autowired 
+	TipoRepository tipoRepository;
+   @Autowired
+   TipoService tipoService;
+  
+   @Autowired
+   EquipoService equipoService;
+   
+   public String createPokemon(RequestPokemon req,RequestEquipo reqE) {
+	   Pokemon pokemon = new Pokemon();
+	   pokemon.setNombre(req.getName());
+	   pokemon.setStatus(1);
+	   try {
+	   List<Tipo> tipos = new ArrayList();
+	   for (String tipo:req.getTipos()) {
+		   Tipo type = tipoService.findTipoByNombre(tipo);
+		   tipos.add(type);
+	   }
+	   
+	  equipoService.createEquipo(reqE);
+	  Equipo eq= equipoService.obtenerEquipo(reqE.getNombreEquipo(),reqE.getEntrenador());
+	  List<Equipo> equipos = new ArrayList();
+	  equipos.add(eq);
+	   pokemon.setTipos(tipos);
+	   pokemon.setEquipos(equipos);
+	  
+	   pokemonRepository.save(pokemon);
+	   return "Pokemon Guardado";
+	   }catch(Exception e) {
+		   
+		   return "Algo salió mal"+e.getMessage();
+	   }
+		   
+   }
+   public ResponsePokemon buscarPokemon(String name) {
+	   ResponsePokemon resp=new ResponsePokemon();
+	   Pokemon pok =pokemonRepository.findByNombre(name).orElse(null);
+	   resp.setNombre(pok.getNombre());
+	   String rT;
+	   List <String> list= new ArrayList();
+	   for (Tipo resT:pok.getTipos()) {
+		   rT=resT.getNombretipo();
+		   list.add(rT);
+	   }
+	   resp.setTipos(list);
+	   return resp;
+	   
+   }
+   
+   public Pokemon obtenerPokemon(String name) {
+		 
+		 
+	return pokemonRepository.findByNombre(name).orElse(null);
+	
+}
 
-	@Autowired
-	EquipoService equipoService;
-	 
-	public String createPokemon(RequestPokemon req,RequestEquipo reqE) {
-		Pokemon pokemon = new Pokemon();
-		pokemon.setNombre(req.getName());
-		pokemon.setStatus(1);
-		try {
-			List<Tipo> tipos = new ArrayList<Tipo>();
-			for (String tipo:req.getTipos()) {
-				Tipo type = tipoService.findTipoByNombre(tipo);
-				tipos.add(type);
-			}
-			
-			equipoService.createEquipo(reqE);
-			Equipo eq= equipoService.obtenerEquipo(reqE.getNombreEquipo(),reqE.getEntrenador());
-			List<Equipo> equipos = new ArrayList<Equipo>();
-			equipos.add(eq);
-			pokemon.setTipos(tipos);
-			pokemon.setEquipos(equipos);
-			
-			pokemonRepository.save(pokemon);
-			return "Pokemon Guardado";
-		} catch(Exception e) {
-			
-			return "Algo sali� mal"+e.getMessage();
-		}		
-	}
-
-	public ResponsePokemon buscarPokemon(String name) {
-		ResponsePokemon resp=new ResponsePokemon();
-		Pokemon pok = pokemonRepository.findByNombre(name).get();
-		resp.setNombre(pok.getNombre());
-		ResponseTipo rT=new ResponseTipo();
-		List <ResponseTipo> list= new ArrayList<ResponseTipo>();
-		for (Tipo resT:pok.getTipos()) {
-			rT.setNombreTipo(resT.getNombretipo());
-			list.add(rT);
+public List<Pokemon> pokemonEquipo(Equipo e){
+	List<Pokemon> listaPokemons=pokemonRepository.findAll();
+	List<Pokemon> pokemonesEquipo=new ArrayList<>();
+	for(Pokemon pokemon:listaPokemons) {
+		if(pokemon.getEquipos().contains(e)) {
+	   pokemonesEquipo.add(pokemon);
 		}
-		List<String> tipos = new ArrayList<>();
-		list.forEach(l -> tipos.add(l.getNombreTipo()));
-		resp.setTipos(tipos);
-		return resp;
-		
 	}
-	 
-	public Pokemon obtenerPokemon(String name) {
-	return pokemonRepository.findByNombre(name).get();
+	
+	return pokemonesEquipo;
+}
+public List<Tipo> tipoPkemono(Pokemon p){
+	List<Tipo> listaTipo=tipoRepository.findAll();
+	List<Tipo> tiposPokemon=new ArrayList<>();
+	for(Tipo tipo:listaTipo) {
+		if(tipo.getPokemons().contains(p)) {
+	   tiposPokemon.add(tipo);
+		}
 	}
+	
+	return tiposPokemon;
+}
+
+public ResponseTipos tipos(Pokemon p) {
+	List<String> nombreTipos=new ArrayList<>();
+	ResponseTipos respuesta=new ResponseTipos();
+	List<Tipo> types =this.tipoPkemono(p);
+	for(Tipo tipo:types)
+		nombreTipos.add(tipo.getNombretipo());
+	respuesta.setTipos(nombreTipos);
+	return respuesta;
+}
+
 
 
 }
