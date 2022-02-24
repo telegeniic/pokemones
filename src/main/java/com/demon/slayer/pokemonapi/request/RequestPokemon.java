@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Data
 public class RequestPokemon {
-	@JsonProperty("nombre")
+	@JsonProperty("name")
 	private String name;
 	private List<String> tipos;
 	
@@ -19,6 +19,12 @@ public class RequestPokemon {
 	public String getName() {
 		return name;
 	}
+
+
+
+    public List<String> getTipos() {
+        return tipos;
+    }
 
 }
 

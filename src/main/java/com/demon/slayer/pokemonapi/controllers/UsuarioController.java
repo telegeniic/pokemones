@@ -10,6 +10,7 @@ import com.demon.slayer.pokemonapi.request.RequestRegister;
 import com.demon.slayer.pokemonapi.request.RequestTipo;
 import com.demon.slayer.pokemonapi.response.JWTAuthResponse;
 import com.demon.slayer.pokemonapi.response.PokemonsResponse;
+import com.demon.slayer.pokemonapi.response.ResponseCreate;
 import com.demon.slayer.pokemonapi.response.ResponsePokemon;
 import com.demon.slayer.pokemonapi.response.ResponseTipos;
 import com.demon.slayer.pokemonapi.response.ResponseUsuario;
@@ -24,6 +25,7 @@ import com.demon.slayer.pokemonapi.services.UsuarioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -60,7 +62,7 @@ public class UsuarioController {
      
     
     @PostMapping("/register")
-    public String createUsuario(@Valid @RequestBody RequestRegister datos){
+    public ResponseCreate createUsuario(@Valid @RequestBody RequestRegister datos){
         return usuarioService.createUsuario(datos);
     }
         

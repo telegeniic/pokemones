@@ -24,12 +24,15 @@ import com.demon.slayer.pokemonapi.repositories.UsuarioRepository;
 import com.demon.slayer.pokemonapi.request.RequestPokemon;
 import com.demon.slayer.pokemonapi.request.RequestRegister;
 import com.demon.slayer.pokemonapi.response.PokemonsResponse;
+import com.demon.slayer.pokemonapi.response.ResponseCreate;
 import com.demon.slayer.pokemonapi.response.ResponsePokemon;
 import com.demon.slayer.pokemonapi.response.ResponseUsuario;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +57,7 @@ public class UsuarioService {
 	private PasswordEncoder passwordEncoder;
 	
 
-	public String createUsuario(RequestRegister registro){
+	public ResponseCreate createUsuario(RequestRegister registro){
 		List<Tipo> type= tipoRepository.findAll();
 			if (type.isEmpty()) {
 				tipoService.agregarTipos();
@@ -69,10 +72,10 @@ public class UsuarioService {
 			user.setPassword(passwordEncoder.encode(registro.getUsuario().getPassword()));
 			user.setEquipo(equipoService.obtenerEquipo(registro.getEquipo()));
 			usuarioRepository.save(user);
-			return "Bien";
+			return new ResponseCreate("Bien");
 		}
 		else
-			return "Un error";
+			return new ResponseCreate("Usuario existente");
 			
 			
 	}
@@ -89,7 +92,7 @@ public class UsuarioService {
 		List<Pokemon> pokemons = new ArrayList<>();
 		usuario.setRol(datos.getUser().getRol());
 		usuario.getEquipo().setEntrenador(datos.getEquipo().getEntrenador());
-		usuario.getEquipo().setNombreEquipo(datos.getEquipo().getNombreEquipo());
+		usuario.getEquipo().setNombreEquipo(datos.getEquipo().getNombre_equipo());
 		datos.getPokemonList().forEach(p -> {
 			List<Tipo> tipos = new ArrayList<>();
 			p.getTipos().forEach((t) -> {

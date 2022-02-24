@@ -2,14 +2,11 @@ package com.demon.slayer.pokemonapi.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.demon.slayer.pokemonapi.request.RequestUsuario;
-import com.demon.slayer.pokemonapi.request.RequestRegister;
 
 import lombok.*;
 
