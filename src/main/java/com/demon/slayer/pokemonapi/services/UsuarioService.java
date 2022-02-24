@@ -3,6 +3,8 @@ package com.demon.slayer.pokemonapi.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.demon.slayer.pokemonapi.exceptions.UserAlreadyExistException;
+import com.demon.slayer.pokemonapi.exceptions.UserNotFoundException;
 import com.demon.slayer.pokemonapi.models.Equipo;
 import com.demon.slayer.pokemonapi.models.Pokemon;
 import com.demon.slayer.pokemonapi.models.Tipo;
@@ -75,19 +77,19 @@ public class UsuarioService {
 			return new ResponseCreate("Bien");
 		}
 		else
-			return new ResponseCreate("Usuario existente");
+			throw new UserAlreadyExistException();
 			
 			
 	}
 	public Usuario findByUsuario(String user) {
-		return usuarioRepository.findByUsuario(user).orElse(null);
+		return usuarioRepository.findByUsuario(user).orElseThrow(() -> new UserNotFoundException());
 	}
 
 	public String requestUpdateUsuario(RequestUpdateUsuario datos, String username) {
 		logger.info("Se llamo la funcion Request update");
 		logger.info("Datos: "+datos);
 		logger.info("Username: "+username);
-		Usuario usuario = usuarioRepository.findByUsuario(username).orElse(null);
+		Usuario usuario = usuarioRepository.findByUsuario(username).orElseThrow(() -> new UserNotFoundException());
 		logger.info("usuario: "+usuario);
 		List<Pokemon> pokemons = new ArrayList<>();
 		usuario.setRol(datos.getUser().getRol());
@@ -109,7 +111,7 @@ public class UsuarioService {
 	    
 	    
 	public PokemonsResponse pokemonesUsuario(String name) {
-		Usuario user =usuarioRepository.findByUsuario(name).orElse(null);
+		Usuario user =usuarioRepository.findByUsuario(name).orElseThrow(() -> new UserNotFoundException());
 		PokemonsResponse regresar=new PokemonsResponse();
 		List<ResponsePokemon> pokemones =new ArrayList<>();
 		for(Pokemon pokemon:pokemonService.pokemonEquipo(user.getEquipo())) {
