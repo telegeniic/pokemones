@@ -14,4 +14,8 @@ public class ResponseTipos {
 		this.tipos=respuestaTipo;
 	}
 
+    public List<String> getTipos() {
+        return tipos;
+    }
+
 }

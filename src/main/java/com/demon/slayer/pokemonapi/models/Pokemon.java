@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,16 +14,25 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.demon.slayer.pokemonapi.request.RequestPokemon;
+import com.demon.slayer.pokemonapi.response.ResponseTipos;
+import com.demon.slayer.pokemonapi.services.PokemonService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
-@Data
+@Getter
+@Setter
 @Entity
 
 @NoArgsConstructor
 @Table(name ="pokemon")
 public class Pokemon {
+
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -34,7 +44,7 @@ public class Pokemon {
 	@Column(name="status")
 	private int status;
 	
-	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@ManyToMany(fetch=FetchType.LAZY ,cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinTable(
 		name="pokemon_tipo",
 				joinColumns=@JoinColumn(name="idpokemon"),
@@ -42,6 +52,9 @@ public class Pokemon {
 	)
 	private List<Tipo> tipos =new ArrayList<>();
 	
+	public Pokemon(RequestPokemon p) {
+		this.nombre = p.getName();
+	}
 
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinTable(
@@ -61,15 +74,16 @@ public class Pokemon {
 		this.tipos=tipos;
 	}
 
-public void setEquipos(List<Equipo>equipos) {
-	this.equipos=equipos;
-}
-public String getNombre() {
-	return nombre;
-}
-public List<Tipo> getTipos() {
-    return this.getTipos();
-}
-
-	
+	public void setEquipos(List<Equipo>equipos) {
+		this.equipos=equipos;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public List<Tipo> getTipos() {
+		return this.getTipos();
+	}
+	public List<Equipo> getEquipos() {
+		return equipos;
+	}
 }

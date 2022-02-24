@@ -9,16 +9,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-public class RequestPokemon {
-	@JsonProperty("nombre")
-	private String name;
-	private List<String> tipos;
+public class RequestUpdateUsuario {
 	
+	private RequestUsuario user;
 	
-	
-	public String getName() {
-		return name;
-	}
+	private RequestEquipo equipo;
+	@JsonProperty("pokemons")
+	private List<RequestPokemon> pokemonList;
 
 }
-

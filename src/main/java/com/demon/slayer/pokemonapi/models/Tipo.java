@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,12 +14,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @Table(name ="tipo")
-@Getter
-@Setter
 public class Tipo {
 	
 	@Id
@@ -28,7 +28,7 @@ public class Tipo {
 	@Column(name="nombretipo")
 	private String nombretipo;
 
-	@ManyToMany(mappedBy="tipos")
+	@ManyToMany(fetch=FetchType.LAZY,mappedBy="tipos")
 	private List<Pokemon> pokemons =new ArrayList<>();
 
 	public String getNombretipo() {
@@ -38,6 +38,10 @@ public class Tipo {
     public void setNombretipo(String tipito) {
 		this.nombretipo=(tipito);
     }
+
+	public List<Pokemon> getPokemons() {
+		return pokemons;
+	}
 	
 	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,11 +12,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.demon.slayer.pokemonapi.request.RequestEquipo;
+
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @Table(name ="equipos")
@@ -34,9 +39,7 @@ public class Equipo {
 	@OneToOne(mappedBy = "equipo")
 	private Usuario usuario;
 	
-	
-	
-	@ManyToMany(mappedBy="equipos")
+	@ManyToMany(mappedBy = "equipos")
 	private List<Pokemon> pokemons =new ArrayList<>();
 	
 
@@ -59,9 +62,18 @@ public class Equipo {
 		return nombreequipo;
 	}
 
+	public Equipo(RequestEquipo data) {
+		this.entrenador = data.getEntrenador();
+		this.nombreequipo = data.getNombreEquipo();
+		
+		
+	}
+	
     public List<Pokemon> getPokemons() {
         return pokemons;
     }
+
+	
 
 
 }

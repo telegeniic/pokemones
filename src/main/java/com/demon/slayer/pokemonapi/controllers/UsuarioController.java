@@ -2,6 +2,7 @@ package com.demon.slayer.pokemonapi.controllers;
 
 import javax.validation.Valid;
 
+import com.demon.slayer.pokemonapi.models.Testing;
 import com.demon.slayer.pokemonapi.models.Tipo;
 import com.demon.slayer.pokemonapi.request.RequestEquipo;
 import com.demon.slayer.pokemonapi.request.RequestLoginUsuario;
@@ -11,10 +12,13 @@ import com.demon.slayer.pokemonapi.response.JWTAuthResponse;
 import com.demon.slayer.pokemonapi.response.PokemonsResponse;
 import com.demon.slayer.pokemonapi.response.ResponsePokemon;
 import com.demon.slayer.pokemonapi.response.ResponseTipos;
+import com.demon.slayer.pokemonapi.response.ResponseUsuario;
 import com.demon.slayer.pokemonapi.security.JwtTokenProvider;
 import com.demon.slayer.pokemonapi.services.EquipoService;
 import com.demon.slayer.pokemonapi.services.PokemonService;
 import com.demon.slayer.pokemonapi.services.TipoService;
+import com.demon.slayer.pokemonapi.request.RequestUpdateUsuario;
+import com.demon.slayer.pokemonapi.request.RequestUsuario;
 import com.demon.slayer.pokemonapi.services.UsuarioService;
 
 import org.slf4j.Logger;
@@ -24,6 +28,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class UsuarioController {
@@ -52,13 +58,22 @@ public class UsuarioController {
 
     Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
      
+    
+    @PostMapping("/register")
+    public String createUsuario(@Valid @RequestBody RequestRegister datos){
+        return usuarioService.createUsuario(datos);
+    }
+        
+    @PostMapping("/update/{username}")
+    public String requestUpdateUsuario(@Valid @RequestBody RequestUpdateUsuario datos, @PathVariable String username) {
+        logger.warn("datos: "+datos);
+        logger.warn("username: "+username);
+    	return usuarioService.requestUpdateUsuario(datos, username);
+    }
 
 
     @PostMapping("/login")
     public JWTAuthResponse login(@RequestBody RequestLoginUsuario usuario){
-        logger.warn("Se hizo la llamada");
-        logger.warn("username: "+usuario.getUsuario());
-        logger.warn("password: "+usuario.getPassword());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
             usuario.getUsuario(), usuario.getPassword()));
         
@@ -67,17 +82,6 @@ public class UsuarioController {
         String token = tokenProvider.generateToken(authentication);
         return new JWTAuthResponse(token);
     }
-
-    
-    
-    @PostMapping("/register")
-    public String createUsuario(@Valid @RequestBody RequestRegister datos){
-        return usuarioService.createUsuario(datos);
-
-    }
-
-    
-	
 	 
 	@GetMapping("get_tipos")
 	public ResponseTipos getTipos(){
@@ -85,12 +89,22 @@ public class UsuarioController {
 		return tipoService.getAllTipos();
 
 	}
+
+    @PostMapping("testing")
+    public String testing(@RequestBody Testing testing){
+        return "funciono";
+    }
 	
 	@GetMapping("get_pokemons/{username}")
 	public PokemonsResponse getByUsuario(@PathVariable String username){
 		
 		return usuarioService.pokemonesUsuario(username);
 	}
+
+    @GetMapping("get_user/{username}")
+    public ResponseUsuario getByUsername(@PathVariable String username){
+        return usuarioService.buscarUsuario(username);
+    }
 
 	
 

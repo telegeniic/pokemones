@@ -1,8 +1,8 @@
 package com.demon.slayer.pokemonapi.request;
 
+import lombok.Data;
 
-
-
+@Data
 public class RequestUsuario {
     
     private String usuario;
