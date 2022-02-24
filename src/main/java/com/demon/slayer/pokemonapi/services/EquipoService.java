@@ -13,16 +13,19 @@ public class EquipoService {
 	@Autowired
 	EquipoRepository equipoRepository;
 	
-	public String createEquipo (RequestEquipo req) {
+	public Equipo createEquipo (RequestEquipo req) {
 		Equipo equipo =new Equipo();
 		equipo.setNombreEquipo(req.getNombreEquipo());
 		equipo.setEntrenador(req.getEntrenador());
-		equipoRepository.save(equipo);
-		return "Equipo Agregado";
+		return equipoRepository.save(equipo);
 		
 	}
 	
 	public Equipo obtenerEquipo(String nombre,String entrenador) { 
 		return equipoRepository.findByNombre(nombre, entrenador).orElse(null);
+	}
+
+	public Equipo obtenerEquipo(RequestEquipo equipo) {
+		return equipoRepository.findByNombre(equipo.getNombreEquipo(), equipo.getEntrenador()).orElseGet(() -> createEquipo(equipo));
 	}
 }

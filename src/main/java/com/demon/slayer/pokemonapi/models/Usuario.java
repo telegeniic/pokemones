@@ -2,6 +2,7 @@ package com.demon.slayer.pokemonapi.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -11,9 +12,10 @@ import com.demon.slayer.pokemonapi.request.RequestUsuario;
 
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name="Usuarios")
+@Table(name="usuarios")
 
 public class Usuario {
 	
@@ -27,8 +29,8 @@ public class Usuario {
 	@Column(name="pass")
 	private String password;
 
-	@OneToOne
-	@JoinColumn(name = "team_id")
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "equipo_idequipo", nullable=false)
 	private Equipo equipo;
 
 	public void setEquipo(Equipo equipo) {

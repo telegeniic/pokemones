@@ -62,7 +62,8 @@ public class UsuarioController {
         
     @PostMapping("/update/{username}")
     public String requestUpdateUsuario(@Valid @RequestBody RequestUpdateUsuario datos, @PathVariable String username) {
-        logger.warn("datos");
+        logger.warn("datos: "+datos);
+        logger.warn("username: "+username);
     	return usuarioService.requestUpdateUsuario(datos, username);
     }
 
@@ -75,14 +76,6 @@ public class UsuarioController {
 
         String token = tokenProvider.generateToken(authentication);
         return new JWTAuthResponse(token);
-    }
-
-    
-    
-    @PostMapping("/equipo")
-    public String guardarEquipo(@Valid @RequestBody RequestEquipo equipo) {
-    	return equipoService.createEquipo(equipo);
-    	
     }
     
     @GetMapping("/tipo")

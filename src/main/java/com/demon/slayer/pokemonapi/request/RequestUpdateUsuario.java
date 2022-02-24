@@ -11,7 +11,7 @@ import lombok.Setter;
 @Data
 public class RequestUpdateUsuario {
 	
-	private RequestUsuario usuario;
+	private RequestUsuario user;
 	
 	private RequestEquipo equipo;
 	@JsonProperty("pokemons")

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,10 +15,12 @@ import javax.persistence.Table;
 import com.demon.slayer.pokemonapi.request.RequestEquipo;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @Table(name ="equipos")
@@ -33,7 +36,7 @@ public class Equipo {
 	@Column(name="nombreEquipo")
 	private String nombreequipo;
 	
-	@OneToOne(mappedBy = "equipo")
+	@OneToOne(fetch=FetchType.LAZY,mappedBy = "equipo")
 	private Usuario usuario;
 	
 	
