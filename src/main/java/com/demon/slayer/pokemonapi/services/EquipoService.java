@@ -19,9 +19,12 @@ public class EquipoService {
 	
 	public Equipo createEquipo (RequestEquipo req) {
 		Equipo equipo =new Equipo();
-		equipo.setNombreEquipo(req.getNombreEquipo());
-		equipo.setEntrenador(req.getEntrenador());
-		return equipoRepository.save(equipo);
+		if(this.obtenerEquipo( req.getNombre_equipo(),req.getEntrenador())==null) {
+			equipo.setNombreEquipo(req.getNombre_equipo());
+			equipo.setEntrenador(req.getEntrenador());
+		   equipoRepository.save(equipo);
+		   }
+			return equipo;
 		
 	}
 	
@@ -30,6 +33,7 @@ public class EquipoService {
 	}
 
 	public Equipo obtenerEquipo(RequestEquipo equipo) {
-		return equipoRepository.findByNombre(equipo.getNombreEquipo(), equipo.getEntrenador()).orElseGet(() -> createEquipo(equipo));
+		return equipoRepository.findByNombre(equipo.getNombre_equipo(), equipo.getEntrenador()).orElseGet(() -> createEquipo(equipo));
 	}
+	
 }

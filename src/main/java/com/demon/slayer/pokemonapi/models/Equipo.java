@@ -61,10 +61,13 @@ public class Equipo {
 	public String getNombreequipo() {
 		return nombreequipo;
 	}
+	public Equipo(){
+		
+	}
 
 	public Equipo(RequestEquipo data) {
 		this.entrenador = data.getEntrenador();
-		this.nombreequipo = data.getNombreEquipo();
+		this.nombreequipo = data.getNombre_equipo();
 		
 		
 	}
@@ -72,6 +75,10 @@ public class Equipo {
     public List<Pokemon> getPokemons() {
         return pokemons;
     }
+
+	public String getEntrenador() {
+		return entrenador;
+	}
 
 	
 
