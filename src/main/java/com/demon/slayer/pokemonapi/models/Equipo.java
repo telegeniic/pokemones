@@ -36,10 +36,10 @@ public class Equipo {
 	@Column(name="nombreEquipo")
 	private String nombreequipo;
 	
-	@OneToOne(fetch=FetchType.LAZY,mappedBy = "equipo")
+	@OneToOne(mappedBy = "equipo")
 	private Usuario usuario;
 	
-	@ManyToMany(mappedBy = "equipo")
+	@ManyToMany(mappedBy = "equipos")
 	private List<Pokemon> pokemons =new ArrayList<>();
 	
 
