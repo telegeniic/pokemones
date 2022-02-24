@@ -39,7 +39,7 @@ public class Equipo {
 	@OneToOne(fetch=FetchType.LAZY,mappedBy = "equipo")
 	private Usuario usuario;
 	
-	@ManyToMany(mappedBy="equipos")
+	@ManyToMany(mappedBy = "equipo")
 	private List<Pokemon> pokemons =new ArrayList<>();
 	
 
@@ -72,6 +72,8 @@ public class Equipo {
     public List<Pokemon> getPokemons() {
         return pokemons;
     }
+
+	
 
 
 }
