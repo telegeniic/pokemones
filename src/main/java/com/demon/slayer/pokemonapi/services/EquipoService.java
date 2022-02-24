@@ -1,11 +1,15 @@
 package com.demon.slayer.pokemonapi.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.demon.slayer.pokemonapi.models.Equipo;
 import com.demon.slayer.pokemonapi.repositories.EquipoRepository;
 import com.demon.slayer.pokemonapi.request.RequestEquipo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 
 @Service

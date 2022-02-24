@@ -10,8 +10,6 @@ import com.demon.slayer.pokemonapi.repositories.PokemonRepository;
 import com.demon.slayer.pokemonapi.request.RequestEquipo;
 import com.demon.slayer.pokemonapi.request.RequestPokemon;
 import com.demon.slayer.pokemonapi.response.ResponsePokemon;
-import com.demon.slayer.pokemonapi.response.ResponseTipo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,3 +73,4 @@ public class PokemonService {
 
 
 }
+

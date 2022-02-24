@@ -71,5 +71,9 @@ public class Equipo {
 		
 	}
 	
+    public List<Pokemon> getPokemons() {
+        return pokemons;
+    }
+
 
 }
