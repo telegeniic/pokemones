@@ -73,45 +73,43 @@ public class PokemonService {
 	   
    }
    
-   public Pokemon obtenerPokemon(String name) {
-		 
-		 
-	return pokemonRepository.findByNombre(name).orElse(null);
+	public Pokemon obtenerPokemon(String name) {
+		return pokemonRepository.findByNombre(name).orElse(null);
 	
-}
-
-public List<Pokemon> pokemonEquipo(Equipo e){
-	List<Pokemon> listaPokemons=pokemonRepository.findAll();
-	List<Pokemon> pokemonesEquipo=new ArrayList<>();
-	for(Pokemon pokemon:listaPokemons) {
-		if(pokemon.getEquipos().contains(e)) {
-	   pokemonesEquipo.add(pokemon);
-		}
 	}
-	
-	return pokemonesEquipo;
-}
-public List<Tipo> tipoPkemono(Pokemon p){
-	List<Tipo> listaTipo=tipoRepository.findAll();
-	List<Tipo> tiposPokemon=new ArrayList<>();
-	for(Tipo tipo:listaTipo) {
-		if(tipo.getPokemons().contains(p)) {
-	   tiposPokemon.add(tipo);
-		}
-	}
-	
-	return tiposPokemon;
-}
 
-public ResponseTipos tipos(Pokemon p) {
-	List<String> nombreTipos=new ArrayList<>();
-	ResponseTipos respuesta=new ResponseTipos();
-	List<Tipo> types =this.tipoPkemono(p);
-	for(Tipo tipo:types)
-		nombreTipos.add(tipo.getNombretipo());
-	respuesta.setTipos(nombreTipos);
-	return respuesta;
-}
+	public List<Pokemon> pokemonEquipo(Equipo e){
+		List<Pokemon> listaPokemons=pokemonRepository.findAll();
+		List<Pokemon> pokemonesEquipo=new ArrayList<>();
+		for(Pokemon pokemon:listaPokemons) {
+			if(pokemon.getEquipos().contains(e)) {
+		pokemonesEquipo.add(pokemon);
+			}
+		}
+		
+		return pokemonesEquipo;
+	}
+	public List<Tipo> tipoPkemono(Pokemon p){
+		List<Tipo> listaTipo=tipoRepository.findAll();
+		List<Tipo> tiposPokemon=new ArrayList<>();
+		for(Tipo tipo:listaTipo) {
+			if(tipo.getPokemons().contains(p)) {
+		tiposPokemon.add(tipo);
+			}
+		}
+		
+		return tiposPokemon;
+	}
+
+	public ResponseTipos tipos(Pokemon p) {
+		List<String> nombreTipos=new ArrayList<>();
+		ResponseTipos respuesta=new ResponseTipos();
+		List<Tipo> types =this.tipoPkemono(p);
+		for(Tipo tipo:types)
+			nombreTipos.add(tipo.getNombretipo());
+		respuesta.setTipos(nombreTipos);
+		return respuesta;
+	}
 
 
 

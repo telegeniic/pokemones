@@ -25,6 +25,7 @@ import com.demon.slayer.pokemonapi.request.RequestPokemon;
 import com.demon.slayer.pokemonapi.request.RequestRegister;
 import com.demon.slayer.pokemonapi.response.PokemonsResponse;
 import com.demon.slayer.pokemonapi.response.ResponsePokemon;
+import com.demon.slayer.pokemonapi.response.ResponseUsuario;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -117,6 +118,12 @@ public class UsuarioService {
 		}
 		regresar.setListaPokemons(pokemones);
 		return regresar;
+	}
+
+	public ResponseUsuario buscarUsuario(String username){
+		ResponseUsuario response = new ResponseUsuario(this.findByUsuario(username));
+		return response;
+
 	}
 	    
 }

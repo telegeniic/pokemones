@@ -12,6 +12,7 @@ import com.demon.slayer.pokemonapi.response.JWTAuthResponse;
 import com.demon.slayer.pokemonapi.response.PokemonsResponse;
 import com.demon.slayer.pokemonapi.response.ResponsePokemon;
 import com.demon.slayer.pokemonapi.response.ResponseTipos;
+import com.demon.slayer.pokemonapi.response.ResponseUsuario;
 import com.demon.slayer.pokemonapi.security.JwtTokenProvider;
 import com.demon.slayer.pokemonapi.services.EquipoService;
 import com.demon.slayer.pokemonapi.services.PokemonService;
@@ -99,6 +100,11 @@ public class UsuarioController {
 		
 		return usuarioService.pokemonesUsuario(username);
 	}
+
+    @GetMapping("get_user/{username}")
+    public ResponseUsuario getByUsername(@PathVariable String username){
+        return usuarioService.buscarUsuario(username);
+    }
 
 	
 
