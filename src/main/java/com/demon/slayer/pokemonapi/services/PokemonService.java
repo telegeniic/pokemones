@@ -152,5 +152,10 @@ public class PokemonService {
 		  return respuesta;
 	  }
 
+	public void deleteEquipoPokemon(Pokemon pokemon, Equipo equipo){
+		pokemon.getEquipos().remove(equipo);
+		pokemonRepository.save(pokemon);
+	}
+
 }
 

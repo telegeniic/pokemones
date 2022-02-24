@@ -15,7 +15,7 @@ public class ResponseUsuario {
 
     public ResponseUsuario(Usuario usuario){
         this.usuario = usuario.getUsuario();
-        this.rol = usuario.getUsuario();
+        this.rol = usuario.getRol();
         this.equipo = new ResponseEquipo(usuario.getEquipo());
     }
 }

@@ -17,8 +17,6 @@ import org.springframework.stereotype.Service;
 public class EquipoService {
 	@Autowired
 	EquipoRepository equipoRepository;
-	@Autowired
-	PokemonService pokemonService;
 	
 	public Equipo createEquipo (RequestEquipo req) {
 		Equipo equipo =new Equipo();

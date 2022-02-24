@@ -94,6 +94,7 @@ public class UsuarioService {
 		List<Pokemon> pokemons = new ArrayList<>();
 		usuario.setRol(datos.getUser().getRol());
 		usuario.setEquipo(equipoService.updateEquipo(usuario.getEquipo(), datos.getEquipo()));
+		usuario.getEquipo().getPokemons().forEach(p -> pokemonService.deleteEquipoPokemon(p, usuario.getEquipo()));
 		datos.getPokemonList().forEach(p -> {
 			List<Tipo> tipos = new ArrayList<>();
 			logger.info("nombre pokemon: "+p.getName());
@@ -106,6 +107,12 @@ public class UsuarioService {
 			pokemon.setNombre(p.getName());
 			pokemons.add(pokemon);
 		});
+		usuario.getEquipo().setPokemons(pokemons);
+		try{
+			usuarioRepository.save(usuario);
+		} catch(Exception e){
+			throw new UserNotFoundException();
+		}
 		return "Usuario actualizado exitosamente";
     }
 	    
@@ -117,7 +124,7 @@ public class UsuarioService {
 		for(Pokemon pokemon:pokemonService.pokemonEquipo(user.getEquipo())) {
 			ResponsePokemon respuesta =new ResponsePokemon();
 			respuesta.setNombre(pokemon.getNombre());
-
+			respuesta.setId(pokemon.getIdpokemon());
 			respuesta.setTipos(pokemonService.tipos(pokemon).getTipos());
 			pokemones.add(respuesta);
 		}
