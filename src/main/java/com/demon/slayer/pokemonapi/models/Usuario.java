@@ -31,7 +31,7 @@ public class Usuario {
 	private String password;
 
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "equipo_idequipo", nullable=false)
+	@JoinColumn(name = "equipo_id", nullable=false)
 	private Equipo equipo;
 
 	public void setEquipo(Equipo equipo) {

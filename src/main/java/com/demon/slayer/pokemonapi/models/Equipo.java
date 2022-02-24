@@ -39,8 +39,6 @@ public class Equipo {
 	@OneToOne(fetch=FetchType.LAZY,mappedBy = "equipo")
 	private Usuario usuario;
 	
-	
-	
 	@ManyToMany(mappedBy="equipos")
 	private List<Pokemon> pokemons =new ArrayList<>();
 	

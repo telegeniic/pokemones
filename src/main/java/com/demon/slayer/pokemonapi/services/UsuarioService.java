@@ -107,12 +107,15 @@ public class UsuarioService {
 
 	public PokemonsResponse pokemonesUsuario(String name) {
 		Usuario user =(usuarioRepository.findByUsuario(name).orElse(null));
+		logger.info("user: "+user);
+		logger.info("team: "+user.getEquipo());
+		logger.info("pokemons: "+user.getEquipo().getPokemons());
 		PokemonsResponse regresar=new PokemonsResponse();
-		List<ResponsePokemon> pokemones =new ArrayList();
+		List<ResponsePokemon> pokemones =new ArrayList<>();
 		for(Pokemon pokemon:user.getEquipo().getPokemons()) {
 			ResponsePokemon respuesta =new ResponsePokemon();
 			respuesta.setNombre(pokemon.getNombre());
-			List<String> types=new ArrayList();
+			List<String> types=new ArrayList<>();
 			for(Tipo type:pokemon.getTipos()) {
 				types.add(type.getNombretipo());
 			}
@@ -122,11 +125,4 @@ public class UsuarioService {
 		regresar.setListaPokemons(pokemones);
 		return regresar;
 	}
-}
-	  
-	 
-	    
-	    
-	    
-	    
 }
