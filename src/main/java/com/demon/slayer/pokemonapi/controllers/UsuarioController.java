@@ -62,15 +62,15 @@ public class UsuarioController {
      
     
     @PostMapping("/register")
-    public ResponseCreate createUsuario(@Valid @RequestBody RequestRegister datos){
-        return usuarioService.createUsuario(datos);
+    public void createUsuario(@Valid @RequestBody RequestRegister datos){
+        usuarioService.createUsuario(datos);
     }
         
     @PostMapping("/update/{username}")
-    public String requestUpdateUsuario(@Valid @RequestBody RequestUpdateUsuario datos, @PathVariable String username) {
+    public void requestUpdateUsuario(@Valid @RequestBody RequestUpdateUsuario datos, @PathVariable String username) {
         logger.warn("datos: "+datos);
         logger.warn("username: "+username);
-    	return usuarioService.requestUpdateUsuario(datos, username);
+    	usuarioService.requestUpdateUsuario(datos, username);
     }
 
 
