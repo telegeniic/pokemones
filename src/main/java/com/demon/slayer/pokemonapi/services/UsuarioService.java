@@ -3,6 +3,7 @@ package com.demon.slayer.pokemonapi.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.demon.slayer.pokemonapi.exceptions.ResponseException;
 import com.demon.slayer.pokemonapi.exceptions.SamePokemonException;
 import com.demon.slayer.pokemonapi.exceptions.TrainerAlreadyExistException;
 import com.demon.slayer.pokemonapi.exceptions.UserAlreadyExistException;
@@ -70,6 +71,7 @@ public class UsuarioService {
 			if((!pokemonService.repetidos(registro.getPokemons()))){
 				if(equipoService.obtenerEquipo(registro.getEquipo().
 				getNombre_equipo(), registro.getEquipo().getEntrenador())==null){
+					if(this.validaciones(registro)){
 						
 				for (RequestPokemon pokemon:registro.getPokemons()) {
 					pokemonService.createPokemon(pokemon, registro.getEquipo());
@@ -81,6 +83,9 @@ public class UsuarioService {
 				user.setEquipo(equipoService.obtenerEquipo(registro.getEquipo()));
 				usuarioRepository.save(user);
 				return new ResponseCreate("Bien");
+			}else{
+				throw new ResponseException("Entradas inválidad", "inválida", "Datos incorrectos", HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS);
+			}
 			}else
 			throw new TrainerAlreadyExistException();
 		} else{
@@ -147,6 +152,31 @@ public class UsuarioService {
 		ResponseUsuario response = new ResponseUsuario(this.findByUsuario(username));
 		return response;
 
+	}
+
+	public boolean validaciones (RequestRegister datos) {
+		List<String> roles =new ArrayList();
+		roles.add("administrator");
+		roles.add("vacio");
+	if(datos.getPokemons().size()!=0) {
+		if(!roles.contains(datos.getUser().getRol())) {
+			return false;
+		}else {
+			for(RequestPokemon pokemon:datos.getPokemons()) {
+				if(pokemon.getName()==null)
+				return false;
+				if(pokemon.getName().isEmpty()) {
+					return false;
+				}
+			
+				if(pokemon.getTipos().size()==0)
+					return false;
+			}
+			return true;
+		}
+	}
+	else
+		return false;
 	}
 	    
 }
