@@ -13,4 +13,11 @@ public class ResponseException extends RuntimeException{
     public ResponseException(String message){
         super(message);
     }
+
+    public ResponseException(String message, String description, String name, HttpStatus status){
+        super(message);
+        this.description = description;
+        this.name = name;
+        this.status = status;
+    }
 }

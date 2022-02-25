@@ -3,6 +3,10 @@ package com.demon.slayer.pokemonapi.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.demon.slayer.pokemonapi.exceptions.SamePokemonException;
+import com.demon.slayer.pokemonapi.exceptions.TrainerAlreadyExistException;
+import com.demon.slayer.pokemonapi.exceptions.UserAlreadyExistException;
+import com.demon.slayer.pokemonapi.exceptions.UserNotFoundException;
 import com.demon.slayer.pokemonapi.models.Equipo;
 import com.demon.slayer.pokemonapi.models.Pokemon;
 import com.demon.slayer.pokemonapi.models.Tipo;
@@ -63,19 +67,28 @@ public class UsuarioService {
 				tipoService.agregarTipos();
 			}
 		if(this.findByUsuario(registro.getUsuario().getUsuario())==null) {
-			for (RequestPokemon pokemon:registro.getPokemons()) {
-				pokemonService.createPokemon(pokemon, registro.getEquipo());
-			}
-			Usuario user = new Usuario();
-			user.setUsuario(registro.getUsuario().getUsuario());
-			user.setRol(registro.getUsuario().getRol());
-			user.setPassword(passwordEncoder.encode(registro.getUsuario().getPassword()));
-			user.setEquipo(equipoService.obtenerEquipo(registro.getEquipo()));
-			usuarioRepository.save(user);
-			return new ResponseCreate("Bien");
+			if((!pokemonService.repetidos(registro.getPokemons()))){
+				if(equipoService.obtenerEquipo(registro.getEquipo().
+				getNombre_equipo(), registro.getEquipo().getEntrenador())==null){
+						
+				for (RequestPokemon pokemon:registro.getPokemons()) {
+					pokemonService.createPokemon(pokemon, registro.getEquipo());
+				}
+				Usuario user = new Usuario();
+				user.setUsuario(registro.getUsuario().getUsuario());
+				user.setRol(registro.getUsuario().getRol());
+				user.setPassword(passwordEncoder.encode(registro.getUsuario().getPassword()));
+				user.setEquipo(equipoService.obtenerEquipo(registro.getEquipo()));
+				usuarioRepository.save(user);
+				return new ResponseCreate("Bien");
+			}else
+			throw new TrainerAlreadyExistException();
+		} else{
+			throw new SamePokemonException();
+		}
 		}
 		else
-			return new ResponseCreate("Usuario existente");
+			throw new UserAlreadyExistException();
 			
 			
 	}
@@ -87,35 +100,42 @@ public class UsuarioService {
 		logger.info("Se llamo la funcion Request update");
 		logger.info("Datos: "+datos);
 		logger.info("Username: "+username);
-		Usuario usuario = usuarioRepository.findByUsuario(username).orElse(null);
+		Usuario usuario = usuarioRepository.findByUsuario(username).orElseThrow(() -> new UserNotFoundException());
 		logger.info("usuario: "+usuario);
 		List<Pokemon> pokemons = new ArrayList<>();
 		usuario.setRol(datos.getUser().getRol());
-		usuario.getEquipo().setEntrenador(datos.getEquipo().getEntrenador());
-		usuario.getEquipo().setNombreEquipo(datos.getEquipo().getNombre_equipo());
+		usuario.setEquipo(equipoService.updateEquipo(usuario.getEquipo(), datos.getEquipo()));
+		usuario.getEquipo().getPokemons().forEach(p -> pokemonService.deleteEquipoPokemon(p, usuario.getEquipo()));
 		datos.getPokemonList().forEach(p -> {
 			List<Tipo> tipos = new ArrayList<>();
+			logger.info("nombre pokemon: "+p.getName());
 			p.getTipos().forEach((t) -> {
 				logger.info("buscando tipo: "+t);
 				tipos.add(tipoService.findTipoByNombre(t));
 			});
 			Pokemon pokemon = pokemonService.createPokemon(p, datos.getEquipo());
+			pokemon.setTipos(tipos);
+			pokemon.setNombre(p.getName());
 			pokemons.add(pokemon);
 		});
 		usuario.getEquipo().setPokemons(pokemons);
-		usuarioRepository.save(usuario);
+		try{
+			usuarioRepository.save(usuario);
+		} catch(Exception e){
+			throw new UserNotFoundException();
+		}
 		return "Usuario actualizado exitosamente";
     }
 	    
 	    
 	public PokemonsResponse pokemonesUsuario(String name) {
-		Usuario user =usuarioRepository.findByUsuario(name).orElse(null);
+		Usuario user =usuarioRepository.findByUsuario(name).orElseThrow(() -> new UserNotFoundException());
 		PokemonsResponse regresar=new PokemonsResponse();
 		List<ResponsePokemon> pokemones =new ArrayList<>();
 		for(Pokemon pokemon:pokemonService.pokemonEquipo(user.getEquipo())) {
 			ResponsePokemon respuesta =new ResponsePokemon();
 			respuesta.setNombre(pokemon.getNombre());
-
+			respuesta.setId(pokemon.getIdpokemon());
 			respuesta.setTipos(pokemonService.tipos(pokemon).getTipos());
 			pokemones.add(respuesta);
 		}

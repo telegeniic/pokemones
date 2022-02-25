@@ -2,6 +2,8 @@ package com.demon.slayer.pokemonapi.services;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.demon.slayer.pokemonapi.exceptions.ResponseException;
 import com.demon.slayer.pokemonapi.models.Equipo;
 import com.demon.slayer.pokemonapi.models.Pokemon;
 import com.demon.slayer.pokemonapi.models.Tipo;
@@ -14,6 +16,7 @@ import com.demon.slayer.pokemonapi.response.ResponsePokemon;
 import com.demon.slayer.pokemonapi.response.ResponseTipos;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 
@@ -50,24 +53,22 @@ public class PokemonService {
 			   pokemon.setNombre(req.getName());
 			   pokemon.setStatus(1);
 			   try {
-			   List<Tipo> tipos = new ArrayList<Tipo>();
-			   for (String tipo:req.getTipos()) {
-				   Tipo type = tipoService.findTipoByNombre(tipo);
-				   tipos.add(type);
-			   }
-			   
-			  equipoService.createEquipo(reqE);
-			  Equipo eq= equipoService.obtenerEquipo(reqE.getNombre_equipo(),reqE.getEntrenador());
-			  List<Equipo> equipos = new ArrayList<Equipo>();
-			  equipos.add(eq);
-			   pokemon.setTipos(tipos);
-			   pokemon.setEquipos(equipos);
-			  
-			   
-			   return pokemonRepository.save(pokemon);
+				List<Tipo> tipos = new ArrayList<Tipo>();
+				for (String tipo:req.getTipos()) {
+					Tipo type = tipoService.findTipoByNombre(tipo);
+					tipos.add(type);
+				}
+				
+				equipoService.createEquipo(reqE);
+				Equipo eq= equipoService.obtenerEquipo(reqE.getNombre_equipo(),reqE.getEntrenador());
+				List<Equipo> equipos = new ArrayList<Equipo>();
+				equipos.add(eq);
+				pokemon.setTipos(tipos);
+				pokemon.setEquipos(equipos);
+				return pokemonRepository.save(pokemon);
 			   }catch(Exception e) {
 				   
-				   return null;
+				   throw new ResponseException("Error con pokemons", e.getStackTrace().toString(), "Error con pokemon", HttpStatus.INTERNAL_SERVER_ERROR);
 			   }
 	   }
 		   
@@ -151,6 +152,28 @@ public class PokemonService {
 		  return respuesta;
 	  }
 
+	public void deleteEquipoPokemon(Pokemon pokemon, Equipo equipo){
+		pokemon.getEquipos().remove(equipo);
+		pokemonRepository.save(pokemon);
+	}
+
+	public boolean repetidos(List<RequestPokemon>pokemons) {
+		List<Integer>repetidos=new ArrayList();
+		Integer numero=0 ;
+		for (int i=0; i<pokemons.size();i++) {
+			repetidos.add(0);
+			for(int j=0; j<pokemons.size();j++) {
+				if(pokemons.get(i).getName().equals(pokemons.get(j).getName())) {
+					numero=repetidos.get(i);
+					repetidos.set(i, ++numero);
+				}
+			}
+		}
+		for(Integer number:repetidos)
+			if(number!=1)
+				return true;
+			return false;
+	}
 
 }
 

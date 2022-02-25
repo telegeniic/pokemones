@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.demon.slayer.pokemonapi.models.Equipo;
+import com.demon.slayer.pokemonapi.models.Pokemon;
 import com.demon.slayer.pokemonapi.repositories.EquipoRepository;
 import com.demon.slayer.pokemonapi.request.RequestEquipo;
 
@@ -34,6 +35,12 @@ public class EquipoService {
 
 	public Equipo obtenerEquipo(RequestEquipo equipo) {
 		return equipoRepository.findByNombre(equipo.getNombre_equipo(), equipo.getEntrenador()).orElseGet(() -> createEquipo(equipo));
+	}
+
+	public Equipo updateEquipo(Equipo equipoOld, RequestEquipo equipoNew){
+		equipoOld.setNombreEquipo(equipoNew.getNombre_equipo());
+		equipoOld.setEntrenador(equipoNew.getEntrenador());
+		return equipoRepository.save(equipoOld);
 	}
 	
 }
