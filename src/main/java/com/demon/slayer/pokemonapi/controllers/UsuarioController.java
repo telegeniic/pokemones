@@ -82,7 +82,7 @@ public class UsuarioController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = tokenProvider.generateToken(authentication);
-        return new JWTAuthResponse(token);
+        return new JWTAuthResponse("Bearer "+token);
     }
 	 
 	@GetMapping("get_tipos")
