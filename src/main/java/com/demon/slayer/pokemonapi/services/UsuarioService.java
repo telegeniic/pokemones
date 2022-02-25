@@ -156,8 +156,8 @@ public class UsuarioService {
 
 	public boolean validaciones (RequestRegister datos) {
 		List<String> roles =new ArrayList();
-		roles.add("administrator");
-		roles.add("vacio");
+		roles.add("administrator-0");
+		roles.add("provisional-1");
 	if(datos.getPokemons().size()!=0) {
 		if(!roles.contains(datos.getUser().getRol())) {
 			return false;
