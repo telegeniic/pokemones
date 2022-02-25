@@ -157,5 +157,23 @@ public class PokemonService {
 		pokemonRepository.save(pokemon);
 	}
 
+	public boolean repetidos(List<RequestPokemon>pokemons) {
+		List<Integer>repetidos=new ArrayList();
+		Integer numero=0 ;
+		for (int i=0; i<pokemons.size();i++) {
+			repetidos.add(0);
+			for(int j=0; j<pokemons.size();j++) {
+				if(pokemons.get(i).getName().equals(pokemons.get(j).getName())) {
+					numero=repetidos.get(i);
+					repetidos.set(i, ++numero);
+				}
+			}
+		}
+		for(Integer number:repetidos)
+			if(number!=1)
+				return true;
+			return false;
+	}
+
 }
 
