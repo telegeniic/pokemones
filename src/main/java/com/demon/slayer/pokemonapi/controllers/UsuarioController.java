@@ -131,7 +131,7 @@ public class UsuarioController {
     @DeleteMapping("delete/{username}")
     public String borrarUsuario(@PathVariable String username) {
     	userRepo.deleteById(username);
-    	return "Borrado con exito";
+    	return "User " + username + "Borrado con exito";
     }
 
 	
